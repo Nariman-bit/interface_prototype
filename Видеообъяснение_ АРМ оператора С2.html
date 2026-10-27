@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Видеообъяснение: АРМ оператора С2</title>
+<style>
+:root{--bg:#04080d;--p:#0d1823;--ln:#1f3a4e;--tx:#e2eef7;--mut:#8aa5b8;--cy:#3fc1e8;--gr:#5ad06b;--am:#f0b429;--rd:#ff5252;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font:15px/1.4 "Segoe UI",Roboto,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.stage{container-type:inline-size;position:relative;width:min(100%,calc((100vh - 110px)*16/9));aspect-ratio:16/9;background:radial-gradient(ellipse at 30% 20%,#0f2234,#050a10 70%);border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.sc{position:absolute;inset:0;padding:4cqw 5cqw 11cqw;opacity:0;visibility:hidden;transition:opacity .5s;font-size:1.6cqw;display:flex;flex-direction:column;gap:1.6cqw}
+.sc.act{opacity:1;visibility:visible}
+h1{font-size:4.2cqw;line-height:1.1}h2{font-size:3cqw;color:var(--cy)}.sub{color:var(--mut);font-size:1.9cqw}
+.rv{opacity:0;transform:translateY(1cqw);transition:opacity .5s,transform .5s}.rv.on{opacity:1;transform:none}
+.row{display:flex;gap:1cqw;flex-wrap:wrap;align-items:center}
+.chip{padding:.7cqw 1.4cqw;border:1px solid var(--ln);border-radius:.8cqw;background:var(--p);transition:all .4s}
+.hl.on{border-color:var(--cy);background:#0e3a50;color:#fff;box-shadow:0 0 1.6cqw #3fc1e855}
+.chip.g.on{border-color:var(--gr);background:#12361c;box-shadow:0 0 1.6cqw #5ad06b44}
+.chip.a.on{border-color:var(--am);background:#3a2d08}
+.flow{flex:1;display:grid;grid-template-columns:1fr 3cqw 1.2fr 3cqw 1fr;align-items:center;gap:.5cqw}
+.flow .col{display:flex;flex-direction:column;gap:1cqw}.flow .col h3{color:var(--mut);font-size:1.5cqw;font-weight:600}
+.ar{color:var(--cy);font-size:3cqw;text-align:center;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.25;transform:translateX(.5cqw)}}
+.big{text-align:center;padding:2cqw 1cqw}
+.lay{flex:1;display:grid;grid-template-columns:1fr 2.2fr 1.2fr;grid-template-rows:1fr .45fr;gap:1cqw}
+.blk{border:1px dashed var(--ln);border-radius:.8cqw;padding:1.2cqw;transition:all .5s;color:var(--mut)}
+.blk b{display:block;color:var(--tx);font-size:1.9cqw;margin-bottom:.5cqw}.blk.on{border:1px solid var(--cy);background:#0e3a5066;color:var(--tx);box-shadow:0 0 2cqw #3fc1e844}
+.two{flex:1;display:grid;grid-template-columns:1fr 1.3fr;gap:3cqw;align-items:center}
+.two .list{display:flex;flex-direction:column;gap:1cqw}
+.mini{width:100%;border:1px solid var(--ln);border-radius:.8cqw;background:#04090e}
+.btn{padding:1cqw 1.4cqw;border-radius:.7cqw;border:1px solid var(--ln);background:var(--p);display:flex;gap:1cqw;align-items:baseline}
+.btn.on{border-color:var(--cy);background:#0e3a50}.btn.fxb.on{border-color:var(--gr);background:#12361c}
+.btn small{color:var(--mut)}
+.chain{display:flex;flex-wrap:wrap;gap:.6cqw}.chain span{padding:.5cqw 1cqw;border:1px solid var(--ln);border-radius:.6cqw;color:var(--mut);transition:all .4s;font-size:1.35cqw}
+.chain span.on{color:var(--gr);border-color:var(--gr)}
+.modal{border:1px solid var(--am);border-radius:.8cqw;padding:1.4cqw;background:var(--p);margin-top:1cqw}
+.cards{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
+.card{border:1px solid var(--ln);border-radius:.9cqw;padding:1.6cqw;background:var(--p)}
+.card b{display:block;font-size:2cqw;margin-bottom:.6cqw}.card.on{border-color:var(--cy)}
+kbd{background:#12222f;border:1px solid var(--ln);border-radius:.4cqw;padding:.1cqw .7cqw;margin-right:.3cqw}
+.cap{position:absolute;left:5cqw;right:5cqw;bottom:2.4cqw;text-align:center;font-size:1.9cqw;background:#000a;padding:.8cqw 1.4cqw;border-radius:.8cqw;min-height:3.4cqw;z-index:3}
+#intro{position:absolute;inset:0;z-index:5;background:radial-gradient(ellipse at 30% 20%,#0f2234,#050a10 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqw;text-align:center;padding:4cqw}
+#intro button{font-size:2.4cqw;padding:1.2cqw 3.4cqw}
+button{font:inherit;color:var(--tx);background:#0e3a50;border:1px solid var(--cy);border-radius:7px;padding:7px 14px;cursor:pointer}
+button:focus-visible{outline:2px solid var(--am);outline-offset:2px}
+.ctl{width:min(100%,calc((100vh - 110px)*16/9));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#pb{flex:1;min-width:140px;height:10px;background:#0d1823;border:1px solid var(--ln);border-radius:6px;cursor:pointer;position:relative;overflow:hidden}
+#pf{height:100%;width:0;background:var(--cy)}#tm{color:var(--mut);min-width:84px;text-align:right}
+</style></head><body>
+<div class="stage" id="st">
+ <div id="intro"><h1>Как работает АРМ оператора С2</h1><div class="sub">Видеообъяснение · около 3 минут · с субтитрами и голосом</div><button id="go">▶ Смотреть</button></div>
+
+ <section class="sc"><h1 class="rv" data-t="0">Система защиты от беспилотников</h1>
+  <div class="sub rv" data-t=".1">Рабочее место оператора: увидеть цель, понять, чем она опасна, и принять решение</div>
+  <div style="flex:1;display:flex;align-items:center"><div class="chain" style="gap:1cqw">
+   <span class="rv hl chip" data-t=".35">1 Обнаружение</span><span class="rv hl chip" data-t=".45">2 Сопровождение</span><span class="rv hl chip" data-t=".55">3 Идентификация</span><span class="rv hl chip" data-t=".65">4 Оценка угрозы</span><span class="rv hl chip" data-t=".75">5 Решение</span><span class="rv hl chip" data-t=".85">6 Реагирование</span><span class="rv hl chip g" data-t=".93">7 Контроль результата</span></div></div></section>
+
+ <section class="sc"><h2>Как устроена система</h2>
+  <div class="flow">
+   <div class="col"><h3>Датчики</h3><div class="chip rv hl" data-t=".05">РЛС: первичные координаты</div><div class="chip rv hl" data-t=".12">Оптика: визуальное подтверждение</div><div class="chip rv hl" data-t=".19">РЧ-датчики: радиосигналы</div><div class="chip rv hl" data-t=".26">Акустика: звук</div></div>
+   <div class="ar rv" data-t=".3">➜</div>
+   <div class="col big"><div class="chip rv hl" data-t=".38" style="padding:1.6cqw">Модуль ИИ<br><small style="color:var(--mut)">слияние данных, классификация, оценка угрозы</small></div><div class="ar rv" data-t=".5" style="transform:rotate(90deg)">➜</div><div class="chip rv a hl" data-t=".55" style="padding:1.6cqw">ОПЕРАТОР<br><small style="color:var(--am)">решение принимает человек</small></div></div>
+   <div class="ar rv" data-t=".66">➜</div>
+   <div class="col"><h3>Средства реагирования</h3><div class="chip rv g hl" data-t=".72">РЭБ</div><div class="chip rv g hl" data-t=".78">Перехватчик</div><div class="chip rv g hl" data-t=".84">Лазерный комплекс</div><div class="chip rv g hl" data-t=".9">Кинетический модуль</div></div>
+  </div></section>
+
+ <section class="sc"><h2>Что на экране</h2>
+  <div class="lay">
+   <div class="blk hl" data-t=".1" data-e=".38"><b>Слева</b>Состояние датчиков и средств · слои карты · пауза, скорость, новая цель</div>
+   <div class="blk hl" data-t=".28" data-e=".6" style="grid-row:span 1"><b>Центр</b>Главный экран с вкладками · профиль высоты · журнал событий</div>
+   <div class="blk hl" data-t=".5" data-e=".8"><b>Справа</b>Список целей · карточка цели · слияние ИИ · кнопки действий</div>
+   <div class="blk hl" data-t=".78" style="grid-column:1/-1"><b>Внизу</b>Цепочка этапов: на каком шаге находится выбранная цель</div>
+  </div></section>
+
+ <section class="sc"><h2>Пять вкладок главного экрана</h2>
+  <div class="two"><div class="list">
+   <div class="chip hl" data-t="0" data-e=".2"><b>1 Карта</b> — зона, секторы датчиков, следы и векторы</div>
+   <div class="chip hl" data-t=".2" data-e=".4"><b>2 Локатор</b> — круговой обзор с лучом</div>
+   <div class="chip hl" data-t=".4" data-e=".6"><b>3 Оптика</b> — камера и рамка сопровождения</div>
+   <div class="chip hl" data-t=".6" data-e=".8"><b>4 Радиочастоты</b> — спектр и водопад</div>
+   <div class="chip hl" data-t=".8"><b>5 Акустика</b> — звук и пеленг</div></div>
+   <canvas class="mini" id="mc" width="640" height="400"></canvas></div></section>
+
+ <section class="sc"><h2>Работа с целью по шагам</h2>
+  <div class="two"><div class="list">
+   <div class="btn hl" data-t=".12"><b>1</b>Выбрать цель в списке справа</div>
+   <div class="btn hl" data-t=".25"><b>2</b>«Взять на сопровождение»</div>
+   <div class="btn hl" data-t=".4"><b>3</b>«Идентифицировать»: свой или чужой</div>
+   <div class="btn hl" data-t=".52"><b>4</b>«Подтвердить угрозу»</div>
+   <div class="btn fxb hl" data-t=".68"><b>5</b>Выбрать средство: РЭБ, перехватчик, лазер, кинетика<small>только в пределах дальности</small></div></div>
+   <div><div class="chain" style="margin-bottom:1cqw"><span data-t=".12" class="hl">Обнаружение</span><span data-t=".25" class="hl">Сопровождение</span><span data-t=".4" class="hl">Идентификация</span><span data-t=".52" class="hl">Оценка</span><span data-t=".68" class="hl">Решение</span><span data-t=".82" class="hl">Реагирование</span><span data-t=".92" class="hl">Контроль</span></div>
+   <div class="modal rv" data-t=".76"><b style="color:var(--am)">Применить: Лазер</b><br><small style="color:var(--mut)">Действие выполняется только по решению оператора</small><div class="row" style="margin-top:1cqw"><span class="chip">Отмена</span><span class="chip hl on">Подтвердить</span></div></div></div></div></section>
+
+ <section class="sc"><h2>Полезные функции</h2>
+  <div class="cards">
+   <div class="card rv hl" data-t=".12"><b>Тревога</b>Чужая цель в охраняемой зоне: красное мигание, баннер, звук</div>
+   <div class="card rv hl" data-t=".32"><b>Слияние данных ИИ</b>Уверенность каждого датчика и итоговая оценка угрозы</div>
+   <div class="card rv hl" data-t=".52"><b>Свой борт</b>После идентификации получает статус «Свой», действия блокируются</div>
+   <div class="card rv hl" data-t=".72"><b>Управление</b><kbd>1</kbd>–<kbd>5</kbd> вкладки <kbd>Пробел</kbd> пауза <kbd>N</kbd> новая цель <kbd>←</kbd><kbd>→</kbd> смена цели</div>
+  </div></section>
+
+ <section class="sc"><h1 class="rv" data-t="0">Главное</h1>
+  <div style="flex:1;display:flex;flex-direction:column;gap:1.4cqw;justify-content:center;font-size:2.2cqw">
+   <div class="chip rv hl" data-t=".2">Видеть всю воздушную обстановку на одном экране</div>
+   <div class="chip rv hl" data-t=".4">Действовать строго по порядку: от обнаружения до контроля результата</div>
+   <div class="chip rv a hl" data-t=".6">Решение о противодействии всегда остаётся за оператором</div>
+   <div class="sub rv" data-t=".8">Учебный прототип с условными данными</div></div></section>
+
+ <div class="cap" id="cap"></div>
+</div>
+<div class="ctl"><button id="pv" aria-label="Назад">⏮</button><button id="pp" aria-label="Пауза">⏸</button><button id="nx" aria-label="Вперёд">⏭</button>
+ <div id="pb" role="slider" aria-label="Прогресс"><div id="pf"></div></div><span id="tm">0:00</span><button id="vc">Голос: выкл</button></div>
+<script>
+const $=s=>document.querySelector(s),SC=[...document.querySelectorAll(".sc")];
+const NAR=["Это учебный прототип рабочего места оператора системы противодействия беспилотникам.|Он показывает, как обнаруженная цель проходит путь от первого сигнала до контроля результата.|Всего семь этапов: обнаружение, сопровождение, идентификация, оценка угрозы, решение, реагирование и контроль результата.",
+"Система собирает данные с четырёх типов датчиков: радара, оптики, радиочастотных и акустических.|Модуль искусственного интеллекта объединяет их, классифицирует цель и оценивает угрозу.|Но решение о противодействии всегда принимает оператор, и только после этого включаются средства: радиоэлектронное подавление, перехватчик, лазер или кинетический модуль.",
+"Экран разделён на четыре зоны.|Слева состояние датчиков, слои карты и управление симуляцией.|В центре главный экран с вкладками, профилем высоты и журналом событий.|Справа список целей, карточка выбранной цели, слияние данных и кнопки действий.|Внизу цепочка этапов показывает, на каком шаге находится выбранная цель.",
+"В центре пять вкладок.|Карта показывает охраняемую зону, секторы датчиков, следы и векторы целей.|Локатор даёт круговой обзор с вращающимся лучом.|Оптика показывает вид камеры с рамкой сопровождения.|Радиочастоты показывают спектр и водопад: по пикам видны каналы управления и видео.|Акустика показывает звук и пеленг на цель.|Переключать вкладки можно клавишами от одного до пяти.",
+"Теперь порядок работы с целью.|Выберите цель в списке справа и нажмите: взять на сопровождение.|Затем идентифицировать: система определит, свой это борт или чужой.|Если цель чужая, нажмите подтвердить угрозу.|Станут доступны средства противодействия, но только те, до которых хватает дальности.|Выберите средство и подтвердите действие в окне. После применения система выполнит контроль результата.",
+"Несколько полезных функций.|При входе чужой цели в охраняемую зону экран мигает красным и звучит сигнал.|Блок слияния данных показывает уверенность каждого датчика и итоговую оценку.|Служебный борт после идентификации получает статус свой, и действия по нему блокируются.|Пауза, скорость и новая цель помогают отрабатывать сценарии, а горячие клавиши ускоряют работу.",
+"Главное: видеть обстановку целиком, действовать по порядку и оставлять решение человеку.|Это учебный прототип с условными данными. Для реальной эксплуатации нужны настоящие датчики, протоколы и сертификация.|Откройте прототип и попробуйте пройти весь цикл сами."].map(s=>s.split("|"));
+const DUR=NAR.map(a=>Math.max(9,a.join(" ").length*.072+1.5)),TOT=DUR.reduce((a,b)=>a+b,0);
+let i=0,t=0,play=0,voice=0,last=performance.now();
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+function speak(){if(!window.speechSynthesis)return;speechSynthesis.cancel();if(voice&&play){const u=new SpeechSynthesisUtterance(NAR[i].join(" "));u.lang="ru-RU";speechSynthesis.speak(u)}}
+function go(n){i=(n+SC.length)%SC.length;t=0;SC.forEach((s,k)=>s.classList.toggle("act",k==i));speak();render()}
+function render(){const f=t/DUR[i];SC[i].querySelectorAll("[data-t]").forEach(e=>{const a=+e.dataset.t,b=e.dataset.e?+e.dataset.e:9;e.classList.toggle("on",f>=a&&f<b)});
+ const c=NAR[i];$("#cap").textContent=c[Math.min(c.length-1,Math.floor(f*c.length))];
+ const el=DUR.slice(0,i).reduce((a,b)=>a+b,0)+t;$("#pf").style.width=el/TOT*100+"%";$("#tm").textContent=fmt(el)+" / "+fmt(TOT);if(i==3)mini(f)}
+const mc=$("#mc").getContext("2d");
+function mini(f){const k=Math.min(4,Math.floor(f*5)),g=mc,W=640,H=400,cx=W/2,cy=H/2,q=performance.now()/1000;g.fillStyle="#04090e";g.fillRect(0,0,W,H);g.font="16px Segoe UI";g.fillStyle="#7f9bb0";g.fillText(["Карта","Локатор","Оптика","Радиочастоты","Акустика"][k],14,26);
+ const bl=[[.55,.2],[-.45,.3],[.1,-.55]].map((b,j)=>[cx+(b[0]+Math.sin(q+j)*.05)*190,cy-(b[1]+Math.cos(q*.8+j)*.05)*190]);
+ if(k<2){g.strokeStyle="#173c52";for(let r=1;r<=4;r++){g.beginPath();g.arc(cx,cy,r*50,0,7);g.stroke()}
+  if(k==0){g.strokeStyle="#0b1a26";for(let x=0;x<W;x+=40){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()}g.strokeStyle="#0d3a5c";g.lineWidth=8;g.beginPath();g.moveTo(0,300);g.bezierCurveTo(200,200,400,340,W,120);g.stroke();g.lineWidth=1;g.strokeStyle="#5ad06b";g.setLineDash([6,4]);g.beginPath();g.arc(cx,cy,48,0,7);g.stroke();g.setLineDash([]);g.fillStyle="#3fc1e822";g.strokeStyle="#3fc1e8aa";g.beginPath();g.moveTo(140,300);g.arc(140,300,200,-.9,-.3);g.closePath();g.fill();g.stroke()}
+  else{const s=q*2%6.283,gr=g.createConicGradient(s-1.3-1.5708,cx,cy);gr.addColorStop(0,"#3fc1e800");gr.addColorStop(.2,"#3fc1e888");gr.addColorStop(.2001,"#3fc1e800");g.fillStyle=gr;g.beginPath();g.arc(cx,cy,200,0,7);g.fill()}
+  g.fillStyle="#f0b429";bl.forEach(b=>{g.save();g.translate(b[0],b[1]);g.rotate(.785);g.fillRect(-6,-6,12,12);g.restore()});g.fillStyle="#3fc1e8";g.fillRect(cx-4,cy-4,8,8)}
+ else if(k==2){g.strokeStyle="#3fc1e8";g.beginPath();g.moveTo(cx,60);g.lineTo(cx,340);g.moveTo(140,cy);g.lineTo(500,cy);g.stroke();g.strokeStyle="#cfe";g.lineWidth=2;const x=cx+Math.sin(q*2)*8,y=cy+Math.cos(q*1.7)*5;[[-1,-1],[1,-1],[-1,1],[1,1]].forEach(a=>{g.beginPath();g.moveTo(x,y);g.lineTo(x+a[0]*40,y+a[1]*14);g.stroke();g.beginPath();g.ellipse(x+a[0]*40,y+a[1]*14,18,3+Math.abs(Math.sin(q*40)*3),0,0,7);g.stroke()});g.lineWidth=2;g.strokeStyle="#f0b429";g.strokeRect(x-70,y-45,140,90)}
+ else if(k==3){for(let j=0;j<64;j++){let v=.08+Math.random()*.08;if(j==15||j==16||j==47)v=.7+Math.random()*.2;g.fillStyle=v>.5?"#f0b429":"#3fc1e8";g.fillRect(20+j*9.6,H-30-v*300,7,v*300)}g.fillStyle="#7f9bb0";g.fillText("2,4 ГГц",130,60);g.fillText("5,8 ГГц",440,60)}
+ else{g.strokeStyle="#3fc1e8";g.beginPath();for(let x=0;x<400;x+=2){const y=cy+Math.sin(x*.12+q*20)*40+Math.sin(x*.5)*12+Math.random()*8-4;x?g.lineTo(20+x,y):g.moveTo(20,y)}g.stroke();g.strokeStyle="#173c52";g.beginPath();g.arc(530,cy,70,0,7);g.stroke();g.strokeStyle="#f0b429";g.lineWidth=2;g.beginPath();g.moveTo(530,cy);g.lineTo(530+Math.sin(.9)*70,cy-Math.cos(.9)*70);g.stroke();g.lineWidth=1;g.fillStyle="#f0b429";g.fillText("Пеленг",500,cy+100)}}
+function tick(n){const dt=Math.min(.1,(n-last)/1000);last=n;if(play){t+=dt;if(t>=DUR[i]){if(i<SC.length-1)go(i+1);else{play=0;$("#pp").textContent="↻"}}render()}requestAnimationFrame(tick)}
+$("#go").onclick=()=>{$("#intro").style.display="none";play=1;go(0)};
+$("#pp").onclick=()=>{if(i==SC.length-1&&t>=DUR[i]-.1){play=1;go(0)}else{play=!play;if(window.speechSynthesis)play?(speechSynthesis.paused?speechSynthesis.resume():speak()):speechSynthesis.pause()}$("#pp").textContent=play?"⏸":"▶"};
+$("#pv").onclick=()=>go(i-1);$("#nx").onclick=()=>go(i+1);
+$("#vc").onclick=()=>{voice=!voice;$("#vc").textContent="Голос: "+(voice?"вкл":"выкл");speak()};
+$("#pb").onclick=e=>{const r=$("#pb").getBoundingClientRect();let x=(e.clientX-r.left)/r.width*TOT,k=0;while(k<SC.length-1&&x>DUR[k]){x-=DUR[k];k++}go(k);t=x;render()};
+addEventListener("keydown",e=>{if(e.code=="Space"){e.preventDefault();$("#pp").click()}else if(e.key=="ArrowRight")go(i+1);else if(e.key=="ArrowLeft")go(i-1)});
+SC[0].classList.add("act");render();requestAnimationFrame(tick);
+</script></body></html>
